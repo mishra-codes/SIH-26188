@@ -1,1 +1,12 @@
-.venv/
+# Python
+/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated ML datasets
+/data/processed/
+/data/samples/
+
+# Trained ML artifacts
+/ml/models/
