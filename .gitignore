@@ -7,3 +7,5 @@ __pycache__/
 # Generated ML datasets
 /data/processed/
 /data/samples/
+# Trained ML artifacts
+/ml/models/
