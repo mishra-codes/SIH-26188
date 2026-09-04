@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from inference.pipeline import analyze_passport
+from ml.src.inference.pipeline import analyze_passport
 
 
 def test_pipeline_requires_existing_image():

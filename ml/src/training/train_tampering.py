@@ -11,32 +11,15 @@ MANIFEST_PATH = Path("data/processed/dataset_manifest_split.csv")
 MODEL_DIR = Path("ml/models")
 MODEL_PATH = MODEL_DIR / "tampering_random_forest.joblib"
 
-FEATURE_COLUMNS = [
-    "width",
-    "height",
-    "aspect_ratio",
-    "brightness_mean",
-    "brightness_std",
-    "entropy",
-    "edge_density",
-    "noise_std",
-    "local_variation",
-]
 
-
-def build_feature_matrix(df: pd.DataFrame):
+def build_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
     features = []
 
     for image_path in df["image_path"]:
         extracted = extract_forensic_features(image_path)
-        features.append(
-            [extracted[column] for column in FEATURE_COLUMNS]
-        )
+        features.append(extracted)
 
-    return pd.DataFrame(
-        features,
-        columns=FEATURE_COLUMNS,
-    )
+    return pd.DataFrame(features).fillna(0.0)
 
 
 def train_model():
@@ -47,7 +30,9 @@ def train_model():
 
     manifest = pd.read_csv(MANIFEST_PATH)
 
-    train_df = manifest[manifest["split"] == "train"].copy()
+    train_df = manifest[
+        manifest["split"] == "train"
+    ].copy()
 
     if train_df.empty:
         raise ValueError("Training split is empty.")
@@ -56,6 +41,10 @@ def train_model():
 
     X_train = build_feature_matrix(train_df)
     y_train = train_df["label"].astype(int)
+
+    feature_columns = list(X_train.columns)
+
+    print(f"Features used: {len(feature_columns)}")
 
     model = RandomForestClassifier(
         n_estimators=200,
@@ -66,13 +55,16 @@ def train_model():
 
     model.fit(X_train, y_train)
 
-    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    MODEL_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     joblib.dump(
         {
             "model": model,
-            "feature_columns": FEATURE_COLUMNS,
-            "model_version": "poc-v1",
+            "feature_columns": feature_columns,
+            "model_version": "poc-v0.2",
         },
         MODEL_PATH,
     )
@@ -84,11 +76,15 @@ def train_model():
 
     importance = pd.Series(
         model.feature_importances_,
-        index=FEATURE_COLUMNS,
-    ).sort_values(ascending=False)
+        index=feature_columns,
+    ).sort_values(
+        ascending=False
+    )
 
-    print(importance.to_string())
+    print(importance.head(20).to_string())
 
     return model
+
+
 if __name__ == "__main__":
     train_model()

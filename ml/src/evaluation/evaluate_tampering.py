@@ -10,32 +10,26 @@ from ml.src.features.forensics import extract_forensic_features
 MANIFEST_PATH = Path("data/processed/dataset_manifest_split.csv")
 MODEL_PATH = Path("ml/models/tampering_random_forest.joblib")
 
-FEATURE_COLUMNS = [
-    "width",
-    "height",
-    "aspect_ratio",
-    "brightness_mean",
-    "brightness_std",
-    "entropy",
-    "edge_density",
-    "noise_std",
-    "local_variation",
-]
 
-
-def build_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
+def build_feature_matrix(
+    df: pd.DataFrame,
+    feature_columns: list[str],
+) -> pd.DataFrame:
     features = []
 
     for image_path in df["image_path"]:
         extracted = extract_forensic_features(image_path)
 
         features.append(
-            [extracted[column] for column in FEATURE_COLUMNS]
+            [
+                extracted[column]
+                for column in feature_columns
+            ]
         )
 
     return pd.DataFrame(
         features,
-        columns=FEATURE_COLUMNS,
+        columns=feature_columns,
     )
 
 
@@ -62,8 +56,13 @@ def evaluate_model():
     checkpoint = joblib.load(MODEL_PATH)
 
     model = checkpoint["model"]
+    feature_columns = checkpoint["feature_columns"]
 
-    X_test = build_feature_matrix(test_df)
+    X_test = build_feature_matrix(
+        test_df,
+        feature_columns,
+    )
+
     y_test = test_df["label"].astype(int)
 
     predictions = model.predict(X_test)
@@ -76,6 +75,7 @@ def evaluate_model():
     print()
     print("=== Tampering Model Evaluation ===")
     print(f"Test samples: {len(test_df)}")
+    print(f"Features used: {len(feature_columns)}")
     print()
 
     for name, value in metrics.items():
