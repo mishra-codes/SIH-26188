@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -10,6 +10,19 @@ class DocumentInfo(BaseModel):
     nationality: Optional[str] = None
     date_of_birth: Optional[str] = None
     date_of_expiry: Optional[str] = None
+
+
+class MRZChecks(BaseModel):
+    document_number: bool = False
+    date_of_birth: bool = False
+    date_of_expiry: bool = False
+    composite: bool = False
+
+
+class MRZInfo(BaseModel):
+    valid: bool = False
+    checks: MRZChecks = Field(default_factory=MRZChecks)
+    errors: List[str] = Field(default_factory=list)
 
 
 class VerificationChecks(BaseModel):
@@ -25,7 +38,20 @@ class VerificationResponse(BaseModel):
     status: str = Field(
         description="Overall screening decision: CLEAR, REVIEW, or HIGH-RISK"
     )
-    risk_score: int = Field(ge=0, le=100)
+
+    risk_score: int = Field(
+        ge=0,
+        le=100,
+    )
+
     document: DocumentInfo
+
     checks: VerificationChecks
-    reasons: List[str] = []
+
+    mrz: MRZInfo = Field(
+        default_factory=MRZInfo
+    )
+
+    reasons: List[str] = Field(
+        default_factory=list
+    )
