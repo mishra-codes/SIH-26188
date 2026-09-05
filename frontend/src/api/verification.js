@@ -1,6 +1,6 @@
 // ── Verification API Service ────────────────────────────────────
 // Toggle mock mode here. When backend is ready, set USE_MOCK = false.
-const USE_MOCK = true;
+const USE_MOCK = false;
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 // ── Mock responses ───────────────────────────────────────────────
