@@ -1,3 +1,4 @@
+from functools import lru_cache
 from pathlib import Path
 
 import joblib
@@ -22,7 +23,12 @@ MODEL_PATH = (
 )
 
 
+@lru_cache(maxsize=1)
 def _load_model():
+    """
+    Load the tampering model once and reuse it for
+    all subsequent verification requests.
+    """
     if not MODEL_PATH.exists():
         raise FileNotFoundError(
             f"Tampering model not found: {MODEL_PATH}"
@@ -31,10 +37,14 @@ def _load_model():
     checkpoint = joblib.load(MODEL_PATH)
 
     if not isinstance(checkpoint, dict):
-        raise ValueError("Invalid tampering model checkpoint.")
+        raise ValueError(
+            "Invalid tampering model checkpoint."
+        )
 
     if "model" not in checkpoint:
-        raise ValueError("Model checkpoint does not contain 'model'.")
+        raise ValueError(
+            "Model checkpoint does not contain 'model'."
+        )
 
     if "feature_columns" not in checkpoint:
         raise ValueError(
@@ -64,13 +74,20 @@ def analyze_passport(image_path: str) -> MLVerificationResult:
             f"Document image not found: {image_path}"
         )
 
+    # Reuses the already-loaded model after the first request.
     checkpoint = _load_model()
 
     model = checkpoint["model"]
     feature_columns = checkpoint["feature_columns"]
-    model_version = checkpoint.get("model_version", MODEL_VERSION)
+    model_version = checkpoint.get(
+        "model_version",
+        MODEL_VERSION,
+    )
 
-    features = extract_forensic_features(str(path))
+    # Extract forensic features from the document image.
+    features = extract_forensic_features(
+        str(path)
+    )
 
     feature_data = pd.DataFrame([features])
 
@@ -82,9 +99,11 @@ def analyze_passport(image_path: str) -> MLVerificationResult:
 
     if missing_features:
         raise ValueError(
-            f"Missing required model features: {missing_features}"
+            f"Missing required model features: "
+            f"{missing_features}"
         )
 
+    # Keep the exact feature ordering used during training.
     feature_data = feature_data[feature_columns]
 
     tampering_probability = float(
@@ -95,21 +114,30 @@ def analyze_passport(image_path: str) -> MLVerificationResult:
         model.predict(feature_data)[0]
     )
 
-    tampering_score = round(tampering_probability * 100, 2)
+    tampering_score = round(
+        tampering_probability * 100,
+        2,
+    )
 
-    if prediction == 1:
-        tampering_status = "SUSPICIOUS"
-    else:
-        tampering_status = "PASS"
+    tampering_status = (
+        "SUSPICIOUS"
+        if prediction == 1
+        else "PASS"
+    )
 
     signals = [
-        f"Random Forest tampering probability: {tampering_score:.2f}%"
+        f"Random Forest tampering probability: "
+        f"{tampering_score:.2f}%"
     ]
 
     if prediction == 1:
-        signals.append("Classifier predicted potential document tampering.")
+        signals.append(
+            "Classifier predicted potential document tampering."
+        )
     else:
-        signals.append("No tampering detected by the current classifier.")
+        signals.append(
+            "No tampering detected by the current classifier."
+        )
 
     return MLVerificationResult(
         model_version=model_version,
