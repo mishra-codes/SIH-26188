@@ -9,7 +9,8 @@ __pycache__/
 /data/samples/
 
 # Trained ML artifacts
-/ml/models/
+/ml/models/*
+!/ml/models/tampering_random_forest.joblib
 
 # Demo dataset
 /data/demo_dataset/
