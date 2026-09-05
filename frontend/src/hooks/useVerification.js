@@ -45,6 +45,7 @@ export function useVerification() {
       const data = await verifyPassport(file, abortRef.current.signal);
       setResult(data);
       setState(STATES.RESULT);
+      return data;
     } catch (err) {
       if (err.name === 'AbortError') {
         setState(STATES.UPLOADING);

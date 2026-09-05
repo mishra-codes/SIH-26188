@@ -10,6 +10,7 @@ class DocumentInfo(BaseModel):
     nationality: Optional[str] = None
     date_of_birth: Optional[str] = None
     date_of_expiry: Optional[str] = None
+    issuing_country: Optional[str] = None
 
 
 class MRZChecks(BaseModel):

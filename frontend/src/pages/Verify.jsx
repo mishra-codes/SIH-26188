@@ -55,15 +55,14 @@ export default function Verify({ hook, onResult }) {
   }
 
   async function handleVerify() {
-    await startVerification();
-  }
+    if (!file) return;
 
-  // Call onResult after result arrives
-  React.useEffect(() => {
-    if (state === STATES.RESULT && result) {
-      onResult(result, file);
+    const data = await startVerification();
+
+    if (data) {
+      onResult(data, file);
     }
-  }, [state, result, file, onResult]);
+  }
 
   return (
     <div
@@ -277,8 +276,6 @@ function PreviewStep({
         gap: 24,
       }}
     >
-      {/* Document viewer */}
-
       <Card
         style={{
           padding: 24,
@@ -361,8 +358,6 @@ function PreviewStep({
           />
         </div>
       </Card>
-
-      {/* Action panel */}
 
       <Card
         style={{
@@ -498,13 +493,17 @@ function LoadingState({ file }) {
   const [step, setStep] = React.useState(0);
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      setStep((s) =>
-        Math.min(s + 1, STEPS.length - 1)
-      );
-    }, 420);
+    const timer = setInterval(() => {
+      setStep((current) => {
+        if (current >= STEPS.length - 1) {
+          return current;
+        }
 
-    return () => clearInterval(interval);
+        return current + 1;
+      });
+    }, 1200);
+
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -604,8 +603,7 @@ function LoadingState({ file }) {
                     width: 6,
                     height: 6,
                     borderRadius: '50%',
-                    background:
-                      'var(--color-border-strong)',
+                    background: 'var(--color-border-strong)',
                     display: 'block',
                   }}
                 />
@@ -707,8 +705,6 @@ function ResultView({
         gap: 20,
       }}
     >
-      {/* Status banner */}
-
       <div
         style={{
           padding: '18px 24px',
@@ -772,8 +768,6 @@ function ResultView({
           gap: 20,
         }}
       >
-        {/* Document image + info */}
-
         <div
           style={{
             display: 'flex',
@@ -834,11 +828,11 @@ function ResultView({
                 },
                 {
                   label: 'Date of Birth',
-                  value: doc?.date_of_birth_fmt,
+                  value: formatDate(doc?.date_of_birth),
                 },
                 {
                   label: 'Date of Expiry',
-                  value: doc?.date_of_expiry_fmt,
+                  value: formatDate(doc?.date_of_expiry),
                 },
                 {
                   label: 'Issued By',
@@ -848,8 +842,6 @@ function ResultView({
             />
           </Card>
         </div>
-
-        {/* Checks + risk factors */}
 
         <div
           style={{
@@ -1188,7 +1180,23 @@ function ErrorState({ message, onReset }) {
   );
 }
 
-/* ── helpers ─────────────────────────────────────────────────────── */
+/* ── Helpers ─────────────────────────────────────────────────────── */
+
+function formatDate(dateString) {
+  if (!dateString) return null;
+
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return dateString;
+  }
+
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
 
 function formatFileSize(bytes) {
   if (!bytes) return '';
