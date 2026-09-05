@@ -10,3 +10,7 @@ __pycache__/
 
 # Trained ML artifacts
 /ml/models/
+
+# Demo dataset
+/data/demo_dataset/
+/data/demo_dataset.zip
