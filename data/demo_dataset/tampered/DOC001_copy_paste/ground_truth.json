@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "S8040250",
+  "surname": "MOCKLEY",
+  "given_names": "ALEX",
+  "full_name": "MOCKLEY ALEX",
+  "nationality": "SYN",
+  "date_of_birth": "1980-04-05",
+  "sex": "F",
+  "date_of_expiry": "2027-11-24",
+  "mrz_line_1": "P<SYNMOCKLEY<<ALEX<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "S8040250<5SYN8004059F2711243<<<<<<<<<<<<<<02",
+  "mrz_check_digits": {
+    "document_number_check": 5,
+    "dob_check": 9,
+    "expiry_check": 3,
+    "personal_number_check": 0,
+    "composite_check": 2
+  },
+  "tampering": true,
+  "tampering_type": "copy_paste",
+  "label": 1
+}

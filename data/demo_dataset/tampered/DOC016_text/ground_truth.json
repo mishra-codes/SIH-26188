@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "U2182564",
+  "surname": "PHANTOME",
+  "given_names": "CASEY",
+  "full_name": "PHANTOME CASEY",
+  "nationality": "UTO",
+  "date_of_birth": "1970-03-03",
+  "sex": "X",
+  "date_of_expiry": "2027-11-28",
+  "mrz_line_1": "P<UTOPHANTOME<<CASEY<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "U2182564<8UTO7003033X2711287<<<<<<<<<<<<<<04",
+  "mrz_check_digits": {
+    "document_number_check": 8,
+    "dob_check": 3,
+    "expiry_check": 7,
+    "personal_number_check": 0,
+    "composite_check": 4
+  },
+  "tampering": true,
+  "tampering_type": "text_modification",
+  "label": 1
+}

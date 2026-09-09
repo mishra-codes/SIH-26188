@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "S9147519",
+  "surname": "DEMOSON",
+  "given_names": "JORDAN",
+  "full_name": "DEMOSON JORDAN",
+  "nationality": "SYN",
+  "date_of_birth": "1982-01-01",
+  "sex": "F",
+  "date_of_expiry": "2031-03-21",
+  "mrz_line_1": "P<SYNDEMOSON<<JORDAN<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "S9147519<2SYN8201010F3103212<<<<<<<<<<<<<<04",
+  "mrz_check_digits": {
+    "document_number_check": 2,
+    "dob_check": 0,
+    "expiry_check": 2,
+    "personal_number_check": 0,
+    "composite_check": 4
+  },
+  "tampering": true,
+  "tampering_type": "portrait_substitution",
+  "label": 1
+}

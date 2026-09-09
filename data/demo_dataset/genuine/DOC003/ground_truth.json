@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "U2683106",
+  "surname": "TOKENWICK",
+  "given_names": "QUINN",
+  "full_name": "TOKENWICK QUINN",
+  "nationality": "UTO",
+  "date_of_birth": "1994-09-04",
+  "sex": "X",
+  "date_of_expiry": "2032-02-18",
+  "mrz_line_1": "P<UTOTOKENWICK<<QUINN<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "U2683106<6UTO9409042X3202182<<<<<<<<<<<<<<02",
+  "mrz_check_digits": {
+    "document_number_check": 6,
+    "dob_check": 2,
+    "expiry_check": 2,
+    "personal_number_check": 0,
+    "composite_check": 2
+  },
+  "tampering": false,
+  "tampering_type": "none",
+  "label": 0
+}

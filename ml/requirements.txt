@@ -1,1 +1,10 @@
-pytest = 9.1.1
+pytest == 9.1.1
+joblib
+pandas
+Pillow
+numpy
+scikit-learn
+opencv-python-headless
+paddleocr
+paddlepaddle
+PyYAML

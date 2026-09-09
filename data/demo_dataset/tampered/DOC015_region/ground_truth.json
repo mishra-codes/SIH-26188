@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "Z2955705",
+  "surname": "DUMMYRAJ",
+  "given_names": "DEVON",
+  "full_name": "DUMMYRAJ DEVON",
+  "nationality": "ZZA",
+  "date_of_birth": "2000-11-23",
+  "sex": "F",
+  "date_of_expiry": "2033-03-07",
+  "mrz_line_1": "P<ZZADUMMYRAJ<<DEVON<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "Z2955705<2ZZA0011237F3303078<<<<<<<<<<<<<<06",
+  "mrz_check_digits": {
+    "document_number_check": 2,
+    "dob_check": 7,
+    "expiry_check": 8,
+    "personal_number_check": 0,
+    "composite_check": 6
+  },
+  "tampering": true,
+  "tampering_type": "region_manipulation",
+  "label": 1
+}

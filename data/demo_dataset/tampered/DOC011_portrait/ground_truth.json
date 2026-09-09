@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "S2352206",
+  "surname": "STUBBINS",
+  "given_names": "LEE",
+  "full_name": "STUBBINS LEE",
+  "nationality": "SYN",
+  "date_of_birth": "1988-08-17",
+  "sex": "X",
+  "date_of_expiry": "2033-02-08",
+  "mrz_line_1": "P<SYNSTUBBINS<<LEE<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "S2352206<6SYN8808176X3302082<<<<<<<<<<<<<<04",
+  "mrz_check_digits": {
+    "document_number_check": 6,
+    "dob_check": 6,
+    "expiry_check": 2,
+    "personal_number_check": 0,
+    "composite_check": 4
+  },
+  "tampering": true,
+  "tampering_type": "portrait_substitution",
+  "label": 1
+}

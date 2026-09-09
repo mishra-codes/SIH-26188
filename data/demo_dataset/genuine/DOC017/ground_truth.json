@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "Z3623704",
+  "surname": "ECHOFIELD",
+  "given_names": "REESE",
+  "full_name": "ECHOFIELD REESE",
+  "nationality": "ZZA",
+  "date_of_birth": "1978-11-23",
+  "sex": "F",
+  "date_of_expiry": "2031-04-09",
+  "mrz_line_1": "P<ZZAECHOFIELD<<REESE<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "Z3623704<2ZZA7811230F3104091<<<<<<<<<<<<<<00",
+  "mrz_check_digits": {
+    "document_number_check": 2,
+    "dob_check": 0,
+    "expiry_check": 1,
+    "personal_number_check": 0,
+    "composite_check": 0
+  },
+  "tampering": false,
+  "tampering_type": "none",
+  "label": 0
+}

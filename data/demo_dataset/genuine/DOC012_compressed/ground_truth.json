@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "Z1954781",
+  "surname": "TESTOV",
+  "given_names": "SAM",
+  "full_name": "TESTOV SAM",
+  "nationality": "ZZA",
+  "date_of_birth": "1997-04-09",
+  "sex": "M",
+  "date_of_expiry": "2033-04-18",
+  "mrz_line_1": "P<ZZATESTOV<<SAM<<<<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "Z1954781<0ZZA9704091M3304189<<<<<<<<<<<<<<00",
+  "mrz_check_digits": {
+    "document_number_check": 0,
+    "dob_check": 1,
+    "expiry_check": 9,
+    "personal_number_check": 0,
+    "composite_check": 0
+  },
+  "tampering": false,
+  "tampering_type": "compression_only_still_genuine",
+  "label": 0
+}

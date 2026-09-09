@@ -1,0 +1,23 @@
+{
+  "document_type": "passport",
+  "document_number": "S1223685",
+  "surname": "REPLICOR",
+  "given_names": "DREW",
+  "full_name": "REPLICOR DREW",
+  "nationality": "SYN",
+  "date_of_birth": "1973-05-04",
+  "sex": "M",
+  "date_of_expiry": "2027-12-18",
+  "mrz_line_1": "P<SYNREPLICOR<<DREW<<<<<<<<<<<<<<<<<<<<<<<<<",
+  "mrz_line_2": "S1223685<1SYN7305047M2712181<<<<<<<<<<<<<<04",
+  "mrz_check_digits": {
+    "document_number_check": 1,
+    "dob_check": 7,
+    "expiry_check": 1,
+    "personal_number_check": 0,
+    "composite_check": 4
+  },
+  "tampering": true,
+  "tampering_type": "text_modification",
+  "label": 1
+}
